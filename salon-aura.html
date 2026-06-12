@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nathalia — Belleza & Bienestar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;1,9..144,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --blush: #f7e3e0;
+    --rose: #c9818c;
+    --rose-deep: #a8606c;
+    --cream: #fdf6f2;
+    --ink: #4a3539;
+    --gold: #d9b08c;
+    --sage: #e3e9df;
+    --white: #ffffff;
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+
+  html{ scroll-behavior: smooth; }
+
+  body{
+    font-family:'Outfit', sans-serif;
+    color: var(--ink);
+    background: var(--cream);
+    overflow-x:hidden;
+    line-height:1.6;
+  }
+
+  h1,h2,h3,.script{
+    font-family:'Fraunces', serif;
+  }
+
+  a{ text-decoration:none; color:inherit; }
+
+  /* ---------- HEADER ---------- */
+  header{
+    position:fixed;
+    top:0; left:0; right:0;
+    z-index:100;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding: 22px 6vw;
+    transition: background .4s ease, padding .4s ease, box-shadow .4s ease;
+  }
+  header.scrolled{
+    background: rgba(253,246,242,0.85);
+    backdrop-filter: blur(10px);
+    padding: 14px 6vw;
+    box-shadow: 0 4px 20px rgba(169,96,108,0.08);
+  }
+
+  .logo{
+    font-size: 1.6rem;
+    font-weight:600;
+    font-style: italic;
+    color: var(--rose-deep);
+    letter-spacing: 0.5px;
+  }
+
+  nav ul{
+    display:flex;
+    gap: 2.4rem;
+    list-style:none;
+  }
+  nav a{
+    font-size: 0.92rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    position: relative;
+    padding-bottom: 4px;
+  }
+  nav a::after{
+    content:'';
+    position:absolute;
+    left:0; bottom:0;
+    width:0; height:1px;
+    background: var(--rose-deep);
+    transition: width .3s ease;
+  }
+  nav a:hover::after{ width:100%; }
+
+  .nav-toggle{ display:none; }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    min-height: 100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding: 0 6vw;
+    background: linear-gradient(180deg, var(--blush) 0%, var(--cream) 75%);
+    overflow:hidden;
+  }
+
+  .hero-content{
+    position:relative;
+    z-index:2;
+    max-width: 760px;
+  }
+
+  .hero .eyebrow{
+    display:inline-flex;
+    align-items:center;
+    gap: 10px;
+    font-size: 0.85rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--rose-deep);
+    margin-bottom: 1.6rem;
+    opacity:0;
+    animation: fadeUp 1s ease forwards 0.2s;
+  }
+  .eyebrow::before, .eyebrow::after{
+    content:'';
+    width: 28px; height:1px;
+    background: var(--rose-deep);
+  }
+
+  .hero h1{
+    font-size: clamp(3rem, 9vw, 6rem);
+    font-weight: 500;
+    line-height: 1.05;
+    color: var(--ink);
+    opacity:0;
+    animation: fadeUp 1s ease forwards 0.4s;
+  }
+  .hero h1 em{
+    font-style: italic;
+    color: var(--rose-deep);
+    font-weight: 400;
+  }
+
+  .hero p{
+    margin: 1.6rem auto 2.4rem;
+    max-width: 480px;
+    font-size: 1.05rem;
+    color: #75636a;
+    opacity:0;
+    animation: fadeUp 1s ease forwards 0.6s;
+  }
+
+  .btn{
+    display:inline-block;
+    padding: 1rem 2.4rem;
+    border-radius: 100px;
+    font-size: 0.9rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 500;
+    transition: all .35s ease;
+  }
+  .btn-primary{
+    background: var(--rose-deep);
+    color: var(--white);
+    box-shadow: 0 8px 24px rgba(168,96,108,0.35);
+  }
+  .btn-primary:hover{
+    background: var(--ink);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 28px rgba(168,96,108,0.4);
+  }
+  .btn-outline{
+    border: 1px solid var(--rose-deep);
+    color: var(--rose-deep);
+  }
+  .btn-outline:hover{
+    background: var(--rose-deep);
+    color: var(--white);
+  }
+
+  .hero-cta{
+    opacity:0;
+    animation: fadeUp 1s ease forwards 0.8s;
+    display:flex;
+    gap: 1rem;
+    justify-content:center;
+    flex-wrap: wrap;
+  }
+
+  @keyframes fadeUp{
+    from{ opacity:0; transform: translateY(24px); }
+    to{ opacity:1; transform: translateY(0); }
+  }
+
+  /* signature ribbon */
+  .ribbon-wrap{
+    position:absolute;
+    inset:0;
+    z-index:1;
+    pointer-events:none;
+  }
+  .ribbon{
+    position:absolute;
+    width: 140%;
+    left:-20%;
+    top: 8%;
+    opacity: 0.5;
+  }
+  .ribbon path{
+    fill:none;
+    stroke: var(--rose);
+    stroke-width: 1.4;
+    stroke-dasharray: 6 10;
+    animation: dash 60s linear infinite;
+    opacity: 0.55;
+  }
+  .ribbon.two{ top: auto; bottom: 4%; transform: scaleX(-1); }
+  .ribbon.two path{ stroke: var(--gold); animation-duration: 80s; animation-direction: reverse; }
+  @keyframes dash{
+    to{ stroke-dashoffset: -1000; }
+  }
+
+  .scroll-cue{
+    position:absolute;
+    bottom: 36px;
+    left:50%;
+    transform: translateX(-50%);
+    font-size: 0.75rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--rose-deep);
+    opacity: 0.7;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap: 10px;
+  }
+  .scroll-cue .line{
+    width:1px; height: 40px;
+    background: var(--rose-deep);
+    animation: pulseLine 2.4s ease-in-out infinite;
+  }
+  @keyframes pulseLine{
+    0%,100%{ transform: scaleY(0.4); opacity:0.4; }
+    50%{ transform: scaleY(1); opacity: 1; }
+  }
+
+  /* ---------- SECTION GENERIC ---------- */
+  section{
+    padding: 7rem 6vw;
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+
+  .section-head{
+    text-align:center;
+    max-width: 600px;
+    margin: 0 auto 3.5rem;
+  }
+  .section-head .eyebrow{
+    font-size: 0.8rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--rose-deep);
+    display:block;
+    margin-bottom: 0.8rem;
+  }
+  .section-head h2{
+    font-size: clamp(2.2rem, 5vw, 3.2rem);
+    font-weight: 500;
+  }
+  .section-head h2 em{ font-style:italic; color: var(--rose-deep); font-weight:400;}
+
+  /* ---------- ABOUT ---------- */
+  .about{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items:center;
+    padding-top: 5rem;
+  }
+  .about-visual{
+    position:relative;
+    aspect-ratio: 4/5;
+    border-radius: 28px;
+    background: linear-gradient(160deg, var(--blush), var(--sage));
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+  }
+  .about-visual::before{
+    content:'';
+    position:absolute;
+    width: 220px; height:220px;
+    border: 1px solid rgba(255,255,255,0.6);
+    border-radius:50%;
+    top: 18%; left: -40px;
+  }
+  .about-visual span{
+    font-family:'Fraunces', serif;
+    font-style: italic;
+    font-size: 1.4rem;
+    color: var(--rose-deep);
+    text-align:center;
+    padding: 2rem;
+  }
+  .about-text .eyebrow{
+    font-size: 0.8rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--rose-deep);
+    display:block;
+    margin-bottom: 1rem;
+  }
+  .about-text h2{
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    font-weight:500;
+    margin-bottom: 1.4rem;
+  }
+  .about-text h2 em{ font-style:italic; color: var(--rose-deep); font-weight:400; }
+  .about-text p{ color:#75636a; margin-bottom: 1rem; max-width: 480px; }
+
+  .about-stats{
+    display:flex;
+    gap: 2.5rem;
+    margin-top: 2rem;
+  }
+  .about-stats div strong{
+    font-family:'Fraunces', serif;
+    font-size: 2rem;
+    color: var(--rose-deep);
+    display:block;
+  }
+  .about-stats div span{
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #998a8e;
+  }
+
+  /* ---------- SERVICES ---------- */
+  .services-grid{
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.6rem;
+  }
+  .service-card{
+    background: var(--white);
+    border-radius: 22px;
+    padding: 2.4rem 2rem;
+    position:relative;
+    transition: transform .4s ease, box-shadow .4s ease;
+    border: 1px solid rgba(201,129,140,0.12);
+  }
+  .service-card:hover{
+    transform: translateY(-8px);
+    box-shadow: 0 24px 50px rgba(168,96,108,0.14);
+  }
+  .service-card .icon{
+    width: 48px; height:48px;
+    border-radius: 50%;
+    background: var(--blush);
+    display:flex; align-items:center; justify-content:center;
+    margin-bottom: 1.4rem;
+    color: var(--rose-deep);
+  }
+  .service-card h3{
+    font-size: 1.3rem;
+    font-weight: 500;
+    margin-bottom: 0.6rem;
+  }
+  .service-card p{
+    color: #8a7a7e;
+    font-size: 0.92rem;
+    margin-bottom: 1.4rem;
+  }
+  .service-card .price{
+    font-family:'Fraunces', serif;
+    font-style: italic;
+    color: var(--rose-deep);
+    font-size: 1.05rem;
+  }
+
+  /* ---------- GALLERY ---------- */
+  .gallery-grid{
+    display:grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: 160px 160px;
+    gap: 1rem;
+  }
+  .gallery-grid .g1{ grid-column: span 2; grid-row: span 2; }
+  .gallery-grid .g4{ grid-column: span 2; }
+  .gallery-item{
+    border-radius: 18px;
+    background: linear-gradient(135deg, var(--blush), var(--sage));
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:'Fraunces', serif;
+    font-style: italic;
+    color: var(--rose-deep);
+    opacity: 0.85;
+    transition: opacity .3s ease;
+  }
+  .gallery-item:hover{ opacity:1; }
+  .gallery-item:nth-child(2){ background: linear-gradient(135deg, var(--sage), var(--white)); }
+  .gallery-item:nth-child(3){ background: linear-gradient(135deg, var(--gold), var(--blush)); }
+  .gallery-item:nth-child(5){ background: linear-gradient(135deg, var(--rose), var(--blush)); }
+
+  /* ---------- TESTIMONIALS ---------- */
+  .testimonials{
+    background: var(--blush);
+    border-radius: 32px;
+    padding: 4.5rem 6vw;
+  }
+  .testimonial-grid{
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-top: 2.5rem;
+  }
+  .testimonial-card{
+    background: var(--cream);
+    border-radius: 18px;
+    padding: 2rem;
+  }
+  .testimonial-card .stars{
+    color: var(--gold);
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+    letter-spacing: 3px;
+  }
+  .testimonial-card p{
+    font-size: 0.95rem;
+    color: #6b5a5e;
+    margin-bottom: 1.2rem;
+  }
+  .testimonial-card .author{
+    font-family:'Fraunces', serif;
+    font-style: italic;
+    color: var(--rose-deep);
+  }
+
+  /* ---------- CONTACT / BOOKING ---------- */
+  .contact{
+    display:grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 4rem;
+    align-items:start;
+  }
+  .contact-info h2{
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    font-weight:500;
+    margin-bottom:1.2rem;
+  }
+  .contact-info h2 em{ font-style:italic; color: var(--rose-deep); font-weight:400;}
+  .contact-info p{ color:#75636a; max-width: 440px; margin-bottom: 2rem; }
+  .info-row{
+    display:flex;
+    gap: 1rem;
+    margin-bottom: 1.4rem;
+    align-items:flex-start;
+  }
+  .info-row .icon{
+    width: 38px; height:38px;
+    border-radius:50%;
+    background: var(--blush);
+    display:flex; align-items:center; justify-content:center;
+    color: var(--rose-deep);
+    flex-shrink:0;
+  }
+  .info-row strong{ display:block; font-size:0.95rem; }
+  .info-row span{ font-size:0.88rem; color:#998a8e; }
+
+  .booking-form{
+    background: var(--white);
+    border-radius: 24px;
+    padding: 2.5rem;
+    box-shadow: 0 24px 60px rgba(168,96,108,0.1);
+  }
+  .booking-form h3{
+    font-size: 1.4rem;
+    font-weight:500;
+    margin-bottom: 1.6rem;
+  }
+  .booking-form h3 em{ font-style:italic; color:var(--rose-deep); font-weight:400;}
+  .form-row{ margin-bottom: 1.2rem; }
+  .form-row label{
+    display:block;
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: #998a8e;
+    margin-bottom: 0.5rem;
+  }
+  .form-row input, .form-row select{
+    width:100%;
+    padding: 0.85rem 1rem;
+    border: 1px solid #f0dedd;
+    border-radius: 12px;
+    background: var(--cream);
+    font-family:'Outfit', sans-serif;
+    font-size: 0.95rem;
+    color: var(--ink);
+    transition: border-color .3s ease;
+  }
+  .form-row input:focus, .form-row select:focus{
+    outline: none;
+    border-color: var(--rose-deep);
+  }
+  .form-grid{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  .booking-form .btn{
+    width:100%;
+    border:none;
+    cursor:pointer;
+    margin-top: 0.4rem;
+  }
+
+  .map-wrap{
+    border-radius: 24px;
+    overflow:hidden;
+    min-height: 380px;
+    box-shadow: 0 24px 60px rgba(168,96,108,0.1);
+  }
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    text-align:center;
+    padding: 3rem 6vw 2.5rem;
+    color: #b3a0a4;
+    font-size: 0.85rem;
+  }
+  footer .logo{
+    display:block;
+    margin-bottom: 1rem;
+    font-size: 1.4rem;
+  }
+
+  /* ---------- REVEAL ON SCROLL ---------- */
+  .reveal{
+    opacity:0;
+    transform: translateY(30px);
+    transition: opacity .8s ease, transform .8s ease;
+  }
+  .reveal.visible{
+    opacity:1;
+    transform: translateY(0);
+  }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width: 900px){
+    nav ul{ display:none; }
+    .about, .contact{ grid-template-columns: 1fr; gap: 2.5rem; }
+    .services-grid{ grid-template-columns: 1fr 1fr; }
+    .gallery-grid{ grid-template-columns: repeat(2,1fr); grid-template-rows: 140px 140px 140px; }
+    .gallery-grid .g1{ grid-column: span 2; grid-row: span 1; }
+    .testimonial-grid{ grid-template-columns: 1fr; }
+    .form-grid{ grid-template-columns: 1fr; }
+  }
+  @media (max-width: 560px){
+    .services-grid{ grid-template-columns: 1fr; }
+    section{ padding: 4.5rem 6vw; }
+    .about-stats{ gap: 1.4rem; flex-wrap:wrap; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation: none !important; transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<header id="header">
+  <div class="logo">Nathalia</div>
+  <nav>
+    <ul>
+      <li><a href="#sobre">Nosotros</a></li>
+      <li><a href="#servicios">Servicios</a></li>
+      <li><a href="#galeria">Galería</a></li>
+      <li><a href="#ubicacion">Cómo llegar</a></li>
+    </ul>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="ribbon-wrap">
+    <svg class="ribbon" viewBox="0 0 1200 300" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M -50 150 C 150 50, 350 250, 550 120 S 950 -10, 1250 150"/>
+    </svg>
+    <svg class="ribbon two" viewBox="0 0 1200 300" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M -50 150 C 200 260, 400 20, 600 150 S 1000 280, 1250 100"/>
+    </svg>
+  </div>
+  <div class="hero-content">
+    <span class="eyebrow">Belleza · Cuidado · Confianza</span>
+    <h1>Realza tu belleza<br><em>natural</em>, con calma</h1>
+    <p>Un espacio pensado para ti: cabello, piel y manos cuidados por expertas, en un ambiente cálido y relajante.</p>
+    <div class="hero-cta">
+      <a href="#ubicacion" class="btn btn-primary">Cómo llegar</a>
+      <a href="#servicios" class="btn btn-outline">Ver servicios</a>
+    </div>
+  </div>
+  <div class="scroll-cue">
+    <span>Descubre más</span>
+    <div class="line"></div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="sobre">
+  <div class="about-visual reveal">
+    <span>"Cada visita es un momento<br>para ti misma"</span>
+  </div>
+  <div class="about-text reveal">
+    <span class="eyebrow">Sobre nosotras</span>
+    <h2>Tu espacio de <em>bienestar</em> y belleza</h2>
+    <p>En Nathalia combinamos técnicas modernas con un trato cercano. Nuestro equipo se especializa en color, cortes, tratamientos faciales y uñas, siempre adaptados a lo que tú quieres lucir.</p>
+    <p>Más que un salón, un lugar donde te sientes escuchada y cuidada de principio a fin.</p>
+    <div class="about-stats">
+      <div>
+        <strong>+12</strong>
+        <span>Años de experiencia</span>
+      </div>
+      <div>
+        <strong>+3,000</strong>
+        <span>Clientas felices</span>
+      </div>
+      <div>
+        <strong>4.9</strong>
+        <span>Calificación</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="servicios">
+  <div class="section-head reveal">
+    <span class="eyebrow">Nuestros servicios</span>
+    <h2>Pensado para <em>realzarte</em></h2>
+  </div>
+  <div class="services-grid">
+    <div class="service-card reveal">
+      <div class="icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 12c0-4 4-8 9-8s9 4 9 8-4 8-9 8-9-4-9-8z"/><path d="M9 12a3 3 0 106 0 3 3 0 00-6 0z"/></svg>
+      </div>
+      <h3>Corte & Peinado</h3>
+      <p>Cortes a la medida y peinados para toda ocasión, con asesoría según tu rostro y estilo.</p>
+      <div class="price">Desde $250</div>
+    </div>
+    <div class="service-card reveal">
+      <div class="icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 010 18"/></svg>
+      </div>
+      <h3>Color & Mechas</h3>
+      <p>Coloración, balayage y mechas con productos de alta calidad que cuidan tu cabello.</p>
+      <div class="price">Desde $650</div>
+    </div>
+    <div class="service-card reveal">
+      <div class="icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 21s-7-4.5-7-10a4 4 0 018 0 4 4 0 018 0c0 5.5-9 10-9 10z"/></svg>
+      </div>
+      <h3>Tratamientos Faciales</h3>
+      <p>Limpieza profunda, hidratación y rituales faciales para una piel radiante.</p>
+      <div class="price">Desde $400</div>
+    </div>
+    <div class="service-card reveal">
+      <div class="icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2v6m0 8v6M2 12h6m8 0h6"/></svg>
+      </div>
+      <h3>Manicure & Pedicure</h3>
+      <p>Esmaltado, gel y nail art para complementar tu look de pies a manos.</p>
+      <div class="price">Desde $200</div>
+    </div>
+    <div class="service-card reveal">
+      <div class="icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 4v16M19 4v16M5 12h14"/></svg>
+      </div>
+      <h3>Maquillaje</h3>
+      <p>Maquillaje profesional para eventos, sesiones de fotos y ocasiones especiales.</p>
+      <div class="price">Desde $450</div>
+    </div>
+    <div class="service-card reveal">
+      <div class="icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3l2.5 5 5.5.8-4 3.9.9 5.3L12 15.5 7.1 18l.9-5.3-4-3.9 5.5-.8z"/></svg>
+      </div>
+      <h3>Paquetes Especiales</h3>
+      <p>Combina servicios y ahorra: corte + color, o facial + manicure, entre otros.</p>
+      <div class="price">Cotización personalizada</div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="galeria">
+  <div class="section-head reveal">
+    <span class="eyebrow">Galería</span>
+    <h2>Momentos <em>Nathalia</em></h2>
+  </div>
+  <div class="gallery-grid reveal">
+    <div class="gallery-item g1">Espacio principal</div>
+    <div class="gallery-item">Color & mechas</div>
+    <div class="gallery-item">Manicure</div>
+    <div class="gallery-item g4">Tratamientos faciales</div>
+    <div class="gallery-item">Estilizado</div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section>
+  <div class="testimonials reveal">
+    <div class="section-head" style="margin-bottom:0;">
+      <span class="eyebrow">Testimonios</span>
+      <h2>Lo que dicen <em>nuestras clientas</em></h2>
+    </div>
+    <div class="testimonial-grid">
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p>"Salí del salón sintiéndome renovada. El trato fue increíble y el resultado superó lo que esperaba."</p>
+        <div class="author">— Mariana G.</div>
+      </div>
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p>"El ambiente es precioso y muy relajante. Ya es mi lugar de siempre para cuidarme."</p>
+        <div class="author">— Daniela R.</div>
+      </div>
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p>"Profesionales, puntuales y con mucho detalle. Totalmente recomendado."</p>
+        <div class="author">— Fernanda L.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LOCATION -->
+<section id="ubicacion">
+  <div class="contact">
+    <div class="contact-info reveal">
+      <span class="eyebrow" style="font-size:0.8rem; letter-spacing:0.25em; text-transform:uppercase; color:var(--rose-deep); display:block; margin-bottom:1rem;">Visítanos</span>
+      <h2>Te esperamos con <em>los brazos abiertos</em></h2>
+      <p>Encuéntranos fácilmente y déjate consentir. Aceptamos pagos en efectivo y tarjeta.</p>
+
+      <div class="info-row">
+        <div class="icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 1118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        </div>
+        <div>
+          <strong>Dirección</strong>
+          <span>Av. Principal 123, Centro</span>
+        </div>
+      </div>
+      <div class="info-row">
+        <div class="icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.11 4.18 2 2 0 014.09 2h3a2 2 0 012 1.72c.12.81.32 1.6.6 2.36a2 2 0 01-.45 2.11L8.1 9.34a16 16 0 006 6l1.15-1.16a2 2 0 012.11-.45c.76.28 1.55.48 2.36.6a2 2 0 011.72 2z"/></svg>
+        </div>
+        <div>
+          <strong>Teléfono</strong>
+          <span>+52 55 1234 5678</span>
+        </div>
+      </div>
+      <div class="info-row">
+        <div class="icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        </div>
+        <div>
+          <strong>Horario</strong>
+          <span>Lun – Sáb · 9:00 am a 7:00 pm</span>
+        </div>
+      </div>
+      <a href="https://maps.google.com/?q=Av.+Principal+123,+Centro" target="_blank" class="btn btn-primary" style="margin-top:1rem; display:inline-block;">Cómo llegar</a>
+    </div>
+
+    <div class="map-wrap reveal">
+      <iframe
+        src="https://maps.google.com/maps?q=Av.+Principal+123,+Centro&t=&z=14&ie=UTF8&iwloc=&output=embed"
+        width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span class="logo">Nathalia</span>
+  <p>© 2026 Nathalia. Todos los derechos reservados.</p>
+</footer>
+
+<script>
+  // header scroll state
+  const header = document.getElementById('header');
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  // reveal on scroll
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>

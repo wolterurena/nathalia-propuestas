@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nathalia — Estudio de Belleza</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,500;1,600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #fbf7fd;
+    --lilac: #e6dcf6;
+    --lilac-soft: #f1eaf9;
+    --plum: #8a6fa3;
+    --plum-deep: #6a4d83;
+    --ink: #443a52;
+    --gold: #e8c9a0;
+    --sage: #e7efe5;
+    --white: #ffffff;
+  }
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    font-family:'Outfit', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.6;
+    overflow-x:hidden;
+  }
+  a{ text-decoration:none; color:inherit; }
+  h1,h2,h3,.serif{ font-family:'Playfair Display', serif; }
+
+  /* HEADER */
+  header{
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    display:flex; justify-content:space-between; align-items:center;
+    padding: 26px 6vw;
+    transition: all .4s ease;
+  }
+  header.scrolled{
+    background: rgba(251,247,253,0.85);
+    backdrop-filter: blur(10px);
+    padding: 14px 6vw;
+    box-shadow: 0 4px 20px rgba(106,77,131,0.08);
+  }
+  .logo{
+    font-family:'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1.7rem;
+    font-weight:500;
+    color: var(--plum-deep);
+  }
+  nav ul{ display:flex; gap:2.4rem; list-style:none; }
+  nav a{
+    font-size:0.85rem; font-weight:500; letter-spacing:0.18em;
+    text-transform:uppercase; position:relative; padding-bottom:4px;
+  }
+  nav a::after{
+    content:''; position:absolute; left:0; bottom:0; width:0; height:1px;
+    background: var(--plum-deep); transition: width .3s ease;
+  }
+  nav a:hover::after{ width:100%; }
+
+  /* HERO — editorial asymmetric */
+  .hero{
+    min-height: 100vh;
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    align-items:center;
+    padding: 0 6vw;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero-text{ position:relative; z-index:3; }
+  .hero .eyebrow{
+    display:block; font-size:0.85rem; letter-spacing:0.3em; text-transform:uppercase;
+    color: var(--plum-deep); margin-bottom:1.6rem;
+    opacity:0; animation: fadeUp 1s ease forwards 0.2s;
+  }
+  .hero h1{
+    font-size: clamp(3rem, 7vw, 5.4rem);
+    font-weight:500; line-height:1.05;
+    opacity:0; animation: fadeUp 1s ease forwards 0.4s;
+  }
+  .hero h1 em{ font-style:italic; color: var(--plum-deep); font-weight:600; }
+  .hero p{
+    margin: 1.8rem 0 2.4rem; max-width:420px; color:#83768f; font-size:1.05rem;
+    opacity:0; animation: fadeUp 1s ease forwards 0.6s;
+  }
+  .hero-cta{
+    display:flex; gap:1rem; flex-wrap:wrap;
+    opacity:0; animation: fadeUp 1s ease forwards 0.8s;
+  }
+  @keyframes fadeUp{ from{opacity:0; transform:translateY(24px);} to{opacity:1; transform:translateY(0);} }
+
+  .btn{
+    display:inline-block; padding:1rem 2.4rem; border-radius:100px;
+    font-size:0.85rem; letter-spacing:0.12em; text-transform:uppercase; font-weight:500;
+    transition: all .35s ease;
+  }
+  .btn-primary{ background: var(--plum-deep); color:var(--white); box-shadow: 0 8px 24px rgba(106,77,131,0.3); }
+  .btn-primary:hover{ background: var(--ink); transform: translateY(-3px); }
+  .btn-outline{ border:1px solid var(--plum-deep); color: var(--plum-deep); }
+  .btn-outline:hover{ background: var(--plum-deep); color:var(--white); }
+
+  /* signature: oversized rotated numeral / monogram */
+  .hero-visual{
+    position:relative;
+    height:100%;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .monogram{
+    font-family:'Playfair Display', serif;
+    font-style: italic;
+    font-weight: 600;
+    font-size: clamp(14rem, 32vw, 26rem);
+    color: var(--lilac);
+    line-height:1;
+    user-select:none;
+    transform: rotate(-6deg);
+    opacity:0; animation: fadeUp 1.4s ease forwards 0.3s;
+  }
+  .hero-visual .tag{
+    position:absolute;
+    bottom: 14%; right: 4%;
+    background: var(--white);
+    border-radius: 18px;
+    padding: 1.2rem 1.6rem;
+    box-shadow: 0 20px 50px rgba(106,77,131,0.12);
+    font-size:0.9rem;
+    max-width: 220px;
+    opacity:0; animation: fadeUp 1s ease forwards 1s;
+  }
+  .hero-visual .tag strong{ display:block; font-family:'Playfair Display', serif; font-style:italic; color: var(--plum-deep); font-size:1.1rem; margin-bottom:0.2rem; }
+
+  @media (max-width: 900px){
+    .hero{ grid-template-columns:1fr; padding-top: 120px; padding-bottom: 4rem; gap: 2rem; text-align:left;}
+    .hero-visual{ height: 280px; order:-1; }
+    .monogram{ font-size: 11rem; }
+    nav ul{ display:none; }
+  }
+
+  /* SECTIONS GENERIC */
+  section{ padding: 6.5rem 6vw; max-width:1280px; margin:0 auto; }
+  .section-head{ margin-bottom: 3.5rem; }
+  .section-head .eyebrow{
+    font-size:0.8rem; letter-spacing:0.3em; text-transform:uppercase; color: var(--plum-deep);
+    display:block; margin-bottom:0.8rem;
+  }
+  .section-head h2{ font-size: clamp(2.2rem, 5vw, 3.4rem); font-weight:500; max-width: 640px; }
+  .section-head h2 em{ font-style:italic; color: var(--plum-deep); font-weight:600; }
+
+  /* ABOUT — editorial split with big quote */
+  .about{
+    display:grid; grid-template-columns: 0.9fr 1.1fr; gap: 4rem; align-items:start;
+  }
+  .about-quote{
+    font-family:'Playfair Display', serif;
+    font-style: italic; font-weight:500;
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    color: var(--plum-deep);
+    line-height:1.4;
+    border-left: 2px solid var(--lilac);
+    padding-left: 2rem;
+  }
+  .about-body p{ color:#83768f; margin-bottom:1.2rem; max-width:480px; }
+  .about-stats{ display:flex; gap:2.5rem; margin-top:2rem; flex-wrap:wrap; }
+  .about-stats div strong{ font-family:'Playfair Display', serif; font-style:italic; font-size:2rem; color: var(--plum-deep); display:block; }
+  .about-stats div span{ font-size:0.78rem; letter-spacing:0.12em; text-transform:uppercase; color:#a698b3; }
+  @media (max-width: 900px){ .about{ grid-template-columns:1fr; gap:2.5rem; } }
+
+  /* SERVICES — editorial list, no cards */
+  .services-list{ border-top: 1px solid var(--lilac); }
+  .service-row{
+    display:grid; grid-template-columns: 80px 1fr auto;
+    gap: 2rem; align-items:center;
+    padding: 1.8rem 0;
+    border-bottom: 1px solid var(--lilac);
+    transition: padding-left .3s ease, background .3s ease;
+  }
+  .service-row:hover{ padding-left: 1rem; background: var(--lilac-soft); }
+  .service-row .num{ font-family:'Playfair Display', serif; font-style:italic; color: var(--lilac); font-size:1.6rem; }
+  .service-row h3{ font-size:1.3rem; font-weight:500; margin-bottom:0.3rem; }
+  .service-row p{ color:#a698b3; font-size:0.92rem; }
+  .service-row .price{ font-family:'Playfair Display', serif; font-style:italic; color: var(--plum-deep); font-size:1.05rem; white-space:nowrap; }
+  @media (max-width: 700px){
+    .service-row{ grid-template-columns: 50px 1fr; }
+    .service-row .price{ grid-column: 2; padding-left: 0; margin-top:0.4rem; }
+  }
+
+  /* GALLERY */
+  .gallery-grid{
+    display:grid; grid-template-columns: repeat(4,1fr); grid-template-rows:160px 160px; gap:1rem;
+  }
+  .gallery-grid .g1{ grid-column:span 2; grid-row:span 2; }
+  .gallery-grid .g4{ grid-column:span 2; }
+  .gallery-item{
+    border-radius: 4px;
+    background: var(--lilac-soft);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Playfair Display', serif; font-style:italic; color: var(--plum-deep);
+    border: 1px solid var(--lilac);
+  }
+  .gallery-item:nth-child(2){ background: var(--sage); }
+  .gallery-item:nth-child(3){ background: var(--gold); opacity:0.5; }
+  .gallery-item:nth-child(5){ background: var(--lilac); }
+  @media (max-width: 900px){
+    .gallery-grid{ grid-template-columns: repeat(2,1fr); grid-template-rows: 140px 140px 140px; }
+    .gallery-grid .g1{ grid-column:span 2; grid-row:span 1; }
+  }
+
+  /* TESTIMONIALS */
+  .testimonials{ background: var(--lilac-soft); border-radius: 4px; padding: 4.5rem 6vw; }
+  .testimonial-grid{ display:grid; grid-template-columns: repeat(3,1fr); gap:2rem; margin-top:2.5rem; }
+  .testimonial-card{ background: var(--white); border-radius:4px; padding:2rem; border: 1px solid var(--lilac); }
+  .testimonial-card .stars{ color: var(--gold); margin-bottom:1rem; letter-spacing:3px; }
+  .testimonial-card p{ font-size:0.95rem; color:#83768f; margin-bottom:1.2rem; }
+  .testimonial-card .author{ font-family:'Playfair Display', serif; font-style:italic; color: var(--plum-deep); }
+  @media (max-width:900px){ .testimonial-grid{ grid-template-columns:1fr; } }
+
+  /* LOCATION */
+  .contact{ display:grid; grid-template-columns: 1.1fr 1fr; gap:4rem; align-items:start; }
+  .contact-info p{ color:#83768f; max-width:440px; margin-bottom:2rem; }
+  .info-row{ display:flex; gap:1rem; margin-bottom:1.4rem; align-items:flex-start; }
+  .info-row .icon{
+    width:38px; height:38px; border-radius:50%; background: var(--lilac-soft);
+    display:flex; align-items:center; justify-content:center; color: var(--plum-deep); flex-shrink:0;
+  }
+  .info-row strong{ display:block; font-size:0.95rem; }
+  .info-row span{ font-size:0.88rem; color:#a698b3; }
+  .map-wrap{ border-radius:4px; overflow:hidden; min-height:380px; border: 1px solid var(--lilac); }
+  @media (max-width:900px){ .contact{ grid-template-columns:1fr; gap:2.5rem; } }
+
+  /* FOOTER */
+  footer{ text-align:center; padding: 3rem 6vw 2.5rem; color:#bcaecb; font-size:0.85rem; }
+  footer .logo{ display:block; margin-bottom:1rem; font-size:1.4rem; }
+
+  .reveal{ opacity:0; transform: translateY(30px); transition: opacity .8s ease, transform .8s ease; }
+  .reveal.visible{ opacity:1; transform:translateY(0); }
+
+  @media (prefers-reduced-motion: reduce){ *{ animation:none !important; transition:none !important; } }
+</style>
+</head>
+<body>
+
+<header id="header">
+  <div class="logo">Nathalia</div>
+  <nav>
+    <ul>
+      <li><a href="#sobre">Nosotros</a></li>
+      <li><a href="#servicios">Servicios</a></li>
+      <li><a href="#galeria">Galería</a></li>
+      <li><a href="#ubicacion">Cómo llegar</a></li>
+    </ul>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero" style="padding-top:0;">
+  <div class="hero-text">
+    <span class="eyebrow">Belleza · Cuidado · Confianza</span>
+    <h1>Realza tu<br>belleza <em>natural</em></h1>
+    <p>Un espacio pensado para ti: cabello, piel y manos cuidados por expertas, en un ambiente cálido y elegante.</p>
+    <div class="hero-cta">
+      <a href="#ubicacion" class="btn btn-primary">Cómo llegar</a>
+      <a href="#servicios" class="btn btn-outline">Ver servicios</a>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="monogram">N</div>
+    <div class="tag">
+      <strong>+12 años</strong>
+      Cuidando tu belleza con dedicación y técnica.
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="sobre">
+  <div class="about">
+    <div class="about-quote reveal">
+      "Cada visita es un momento para ti misma, en un espacio pensado para hacerte sentir en casa."
+    </div>
+    <div class="about-body reveal">
+      <span class="eyebrow" style="font-size:0.8rem; letter-spacing:0.3em; text-transform:uppercase; color:var(--plum-deep); display:block; margin-bottom:1rem;">Sobre nosotras</span>
+      <h2 style="font-size:clamp(2rem,4vw,2.8rem); font-weight:500; margin-bottom:1.2rem;">Tu espacio de <em style="font-style:italic; color:var(--plum-deep); font-weight:600;">bienestar</em></h2>
+      <p>En Nathalia combinamos técnicas modernas con un trato cercano. Nuestro equipo se especializa en color, cortes, tratamientos faciales y uñas, siempre adaptados a lo que tú quieres lucir.</p>
+      <p>Más que un salón, un lugar donde te sientes escuchada y cuidada de principio a fin.</p>
+      <div class="about-stats">
+        <div><strong>+12</strong><span>Años de experiencia</span></div>
+        <div><strong>+3,000</strong><span>Clientas felices</span></div>
+        <div><strong>4.9</strong><span>Calificación</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="servicios">
+  <div class="section-head reveal">
+    <span class="eyebrow">Nuestros servicios</span>
+    <h2>Pensado para <em>realzarte</em></h2>
+  </div>
+  <div class="services-list reveal">
+    <div class="service-row">
+      <div class="num">01</div>
+      <div><h3>Corte & Peinado</h3><p>Cortes a la medida y peinados para toda ocasión.</p></div>
+      <div class="price">Desde $250</div>
+    </div>
+    <div class="service-row">
+      <div class="num">02</div>
+      <div><h3>Color & Mechas</h3><p>Coloración, balayage y mechas con productos de alta calidad.</p></div>
+      <div class="price">Desde $650</div>
+    </div>
+    <div class="service-row">
+      <div class="num">03</div>
+      <div><h3>Tratamientos Faciales</h3><p>Limpieza profunda, hidratación y rituales para una piel radiante.</p></div>
+      <div class="price">Desde $400</div>
+    </div>
+    <div class="service-row">
+      <div class="num">04</div>
+      <div><h3>Manicure & Pedicure</h3><p>Esmaltado, gel y nail art de pies a manos.</p></div>
+      <div class="price">Desde $200</div>
+    </div>
+    <div class="service-row">
+      <div class="num">05</div>
+      <div><h3>Maquillaje</h3><p>Maquillaje profesional para eventos y ocasiones especiales.</p></div>
+      <div class="price">Desde $450</div>
+    </div>
+    <div class="service-row">
+      <div class="num">06</div>
+      <div><h3>Paquetes Especiales</h3><p>Combina servicios y ahorra: corte + color, o facial + manicure.</p></div>
+      <div class="price">Cotización</div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="galeria">
+  <div class="section-head reveal">
+    <span class="eyebrow">Galería</span>
+    <h2>Momentos <em>Nathalia</em></h2>
+  </div>
+  <div class="gallery-grid reveal">
+    <div class="gallery-item g1">Espacio principal</div>
+    <div class="gallery-item">Color & mechas</div>
+    <div class="gallery-item">Manicure</div>
+    <div class="gallery-item g4">Tratamientos faciales</div>
+    <div class="gallery-item">Estilizado</div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section>
+  <div class="testimonials reveal">
+    <div class="section-head" style="margin-bottom:0;">
+      <span class="eyebrow">Testimonios</span>
+      <h2>Lo que dicen <em>nuestras clientas</em></h2>
+    </div>
+    <div class="testimonial-grid">
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p>"Salí del salón sintiéndome renovada. El trato fue increíble y el resultado superó lo que esperaba."</p>
+        <div class="author">— Mariana G.</div>
+      </div>
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p>"El ambiente es precioso y muy relajante. Ya es mi lugar de siempre para cuidarme."</p>
+        <div class="author">— Daniela R.</div>
+      </div>
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p>"Profesionales, puntuales y con mucho detalle. Totalmente recomendado."</p>
+        <div class="author">— Fernanda L.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LOCATION -->
+<section id="ubicacion">
+  <div class="contact">
+    <div class="contact-info reveal">
+      <span class="eyebrow" style="font-size:0.8rem; letter-spacing:0.3em; text-transform:uppercase; color:var(--plum-deep); display:block; margin-bottom:1rem;">Visítanos</span>
+      <h2 style="font-size:clamp(2rem,4vw,2.8rem); font-weight:500; margin-bottom:1.2rem;">Te esperamos con <em style="font-style:italic; color:var(--plum-deep); font-weight:600;">los brazos abiertos</em></h2>
+      <p>Encuéntranos fácilmente y déjate consentir. Aceptamos pagos en efectivo y tarjeta.</p>
+
+      <div class="info-row">
+        <div class="icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 1118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+        <div><strong>Dirección</strong><span>Av. Principal 123, Centro</span></div>
+      </div>
+      <div class="info-row">
+        <div class="icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.11 4.18 2 2 0 014.09 2h3a2 2 0 012 1.72c.12.81.32 1.6.6 2.36a2 2 0 01-.45 2.11L8.1 9.34a16 16 0 006 6l1.15-1.16a2 2 0 012.11-.45c.76.28 1.55.48 2.36.6a2 2 0 011.72 2z"/></svg></div>
+        <div><strong>Teléfono</strong><span>+52 55 1234 5678</span></div>
+      </div>
+      <div class="info-row">
+        <div class="icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+        <div><strong>Horario</strong><span>Lun – Sáb · 9:00 am a 7:00 pm</span></div>
+      </div>
+      <a href="https://maps.google.com/?q=Av.+Principal+123,+Centro" target="_blank" class="btn btn-primary" style="margin-top:1rem; display:inline-block;">Cómo llegar</a>
+    </div>
+
+    <div class="map-wrap reveal">
+      <iframe src="https://maps.google.com/maps?q=Av.+Principal+123,+Centro&t=&z=14&ie=UTF8&iwloc=&output=embed"
+        width="100%" height="100%" style="border:0; min-height:380px;" allowfullscreen="" loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span class="logo">Nathalia</span>
+  <p>© 2026 Nathalia. Todos los derechos reservados.</p>
+</footer>
+
+<script>
+  const header = document.getElementById('header');
+  window.addEventListener('scroll', () => header.classList.toggle('scrolled', window.scrollY > 40));
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){ entry.target.classList.add('visible'); observer.unobserve(entry.target); }
+    });
+  }, { threshold: 0.15 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
