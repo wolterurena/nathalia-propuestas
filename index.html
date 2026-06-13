@@ -29,7 +29,7 @@
   p.sub{ color:#8a7a7e; margin-bottom: 3rem; font-size:1.05rem; }
   .grid{
     display:grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 1.6rem;
   }
   .card{
@@ -51,6 +51,7 @@
   .s1{ background: linear-gradient(135deg, #f7e3e0, #c9818c); }
   .s2{ background: linear-gradient(135deg, #e6dcf6, #8a6fa3); }
   .s3{ background: linear-gradient(135deg, #ffd9c2, #e0875c); }
+  .s4{ background: linear-gradient(135deg, #d8a8b0, #8a5b63); }
   .card h2{
     font-family:'Fraunces', serif;
     font-weight:500;
@@ -61,7 +62,10 @@
     font-size: 0.9rem;
     color:#998a8e;
   }
-  @media (max-width: 800px){
+  @media (max-width: 1000px){
+    .grid{ grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 600px){
     .grid{ grid-template-columns: 1fr; }
   }
 </style>
@@ -85,6 +89,11 @@
         <div class="swatch s3"></div>
         <h2>Opción 3 · Durazno Orgánico</h2>
         <span>Cálido y juguetón</span>
+      </a>
+      <a class="card" href="nathalia-slider.html">
+        <div class="swatch s4"></div>
+        <h2>Opción 4 · Hero con Slider</h2>
+        <span>Dinámico, a pantalla completa</span>
       </a>
     </div>
   </div>
